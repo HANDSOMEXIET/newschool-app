@@ -1,6 +1,6 @@
-pandas==2.2.2
-numpy==1.26.4
-matplotlib==0.1.7
+pandas
+numpy
+matplotlib
 scikit-learn
 joblib
 openai==0.28.0
