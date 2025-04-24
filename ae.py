@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import openai
 import matplotlib.pyplot as plt
-from dotenv import load_dotenv
+
 import os
 # 字型設定（避免重複導入 plt）
 plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei', 'Arial']
@@ -10,7 +10,7 @@ plt.rcParams['axes.unicode_minus'] = False
 #
 
 # 設定 API 金鑰（建議改為環境變數）
-load_dotenv()  # 讀取 .env 檔案
+
 api_key = os.getenv("OPENAI_API_KEY")
 openai.api_key = api_key
 
