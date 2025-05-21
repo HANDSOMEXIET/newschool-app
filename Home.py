@@ -4,6 +4,7 @@ import openai
 import matplotlib.pyplot as plt
 import os
 from dotenv import load_dotenv
+import matplotlib.font_manager as fm
 
 # 載入環境變數
 load_dotenv()
