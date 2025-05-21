@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # 字型設定（避免重複導入 plt）
+fm.fontManager.addfont('TaipeiSansTCBeta-Regular.ttf')
+plt.rc('font', family='Taipei Sans TC Beta')
 plt.rcParams['font.sans-serif'] = ['Microsoft JhengHei', 'Arial']
 plt.rcParams['axes.unicode_minus'] = False
 
