@@ -252,7 +252,10 @@ st.dataframe(filtered_df[['座號', '班級', '國文分數', '英文分數', '�
 if not filtered_df.empty:
     st.subheader("113學年度統計資訊")
     st.write(f"總學生數：{len(filtered_df)}")
-    st.write(f"平均加權總分：{filtered_df['加權總分'].mean():.2f}")
+    # 計算所有成績的平均值
+    all_scores = filtered_df[['國文分數', '英文分數', '數學B分數', '專一分數', '專二分數']].values.flatten()
+    average_score = all_scores.mean()
+    st.write(f"平均分數：{average_score:.2f}")
     st.write(f"最高加權總分：{filtered_df['加權總分'].max():.2f}")
     st.write(f"最低加權總分：{filtered_df['加權總分'].min():.2f}")
     
@@ -265,15 +268,14 @@ if not filtered_df.empty:
     st.subheader("113學年度原本錄取學校與最佳可錄取學校比較（依據最佳校系平均是否較高）")
     better_count = (filtered_df['最佳校系平均是否較高'] == True).sum()
     same_count = (filtered_df['最佳校系平均是否較高'] == False).sum()
-    unknown_count = (filtered_df['最佳校系平均是否較高'] == '未找到').sum()
     st.write(f"可以上更好學校的學生數：{better_count}")
     st.write(f"原本就是最佳選擇的學生數：{same_count}")
-    st.write(f"無法比較的學生數：{unknown_count}")
+    st.write(f"總學生數：{len(filtered_df)}")
     
     # 添加比較結果的圓餅圖
     fig2, ax3 = plt.subplots(figsize=(8, 8))
-    comparison_results = [better_count, same_count,]
-    labels = ['可以上更好學校', '原本就是最佳選擇', ]
+    comparison_results = [better_count, same_count]
+    labels = ['可以上更好學校', '原本就是最佳選擇']
     colors = ['#FF9999', '#66B2FF', '#CCCCCC']
     ax3.pie(comparison_results, labels=labels, autopct='%1.1f%%', colors=colors, startangle=90)
     ax3.set_title('113學年度學生選擇比較結果')
@@ -300,6 +302,14 @@ filtered_df_same_dept = results_df[
 st.dataframe(filtered_df_same_dept[['座號', '班級', '國文分數', '英文分數', '數學B分數', '專一分數', '專二分數', 
                         '原本錄取學校', '原本錄取校系', '原本錄取分數', '原本錄取校系平均', '最佳可錄取學校', '最佳可錄取科系', 
                         '加權總分', '加權平均', '該校錄取分數', '最佳校系平均', '最佳校系平均是否較高']])
+
+# 添加同科系比較的統計數據
+st.subheader("113學年度同科系比較統計")
+same_school_count = (filtered_df_same_dept['原本錄取學校'] == filtered_df_same_dept['最佳可錄取學校']).sum()
+better_school_count = (filtered_df_same_dept['原本錄取學校'] != filtered_df_same_dept['最佳可錄取學校']).sum()
+st.write(f"原本學校即最佳選擇的學生數：{same_school_count}")
+st.write(f"有更好學校選擇的學生數：{better_school_count}")
+st.write(f"總學生數：{len(filtered_df_same_dept)}")
 
 # 添加同科系比較的圓形圖
 st.subheader("113學年度同科系比較分布")
@@ -442,7 +452,10 @@ st.dataframe(filtered_df_112[['座號', '班級', '國文分數', '英文分數'
 if not filtered_df_112.empty:
     st.subheader("112學年度統計資訊")
     st.write(f"總學生數：{len(filtered_df_112)}")
-    st.write(f"平均加權總分：{filtered_df_112['加權總分'].mean():.2f}")
+    # 計算所有成績的平均值
+    all_scores_112 = filtered_df_112[['國文分數', '英文分數', '數學B分數', '專一分數', '專二分數']].values.flatten()
+    average_score_112 = all_scores_112.mean()
+    st.write(f"平均分數：{average_score_112:.2f}")
     st.write(f"最高加權總分：{filtered_df_112['加權總分'].max():.2f}")
     st.write(f"最低加權總分：{filtered_df_112['加權總分'].min():.2f}")
     
@@ -455,10 +468,9 @@ if not filtered_df_112.empty:
     st.subheader("112學年度原本錄取學校與最佳可錄取學校比較（依據最佳校系平均是否較高）")
     better_count_112 = (filtered_df_112['最佳校系平均是否較高'] == True).sum()
     same_count_112 = (filtered_df_112['最佳校系平均是否較高'] == False).sum()
-    unknown_count_112 = (filtered_df_112['最佳校系平均是否較高'] == '未找到').sum()
     st.write(f"可以上更好學校的學生數：{better_count_112}")
     st.write(f"原本就是最佳選擇的學生數：{same_count_112}")
-    st.write(f"無法比較的學生數：{unknown_count_112}")
+    st.write(f"總學生數：{len(filtered_df_112)}")
     
     # 添加比較結果的圓餅圖
     fig4, ax6 = plt.subplots(figsize=(8, 8))
@@ -491,6 +503,14 @@ filtered_df_same_dept_112 = results_df_112[
 st.dataframe(filtered_df_same_dept_112[['座號', '班級', '國文分數', '英文分數', '數學B分數', '專一分數', '專二分數',
     '原本錄取學校', '原本錄取校系', '原本錄取分數', '原本錄取校系平均', '最佳可錄取學校', '最佳可錄取科系',
     '加權總分', '加權平均', '該校錄取分數', '最佳校系平均', '最佳校系平均是否較高']])
+
+# 添加同科系比較的統計數據
+st.subheader("112學年度同科系比較統計")
+same_school_count_112 = (filtered_df_same_dept_112['原本錄取學校'] == filtered_df_same_dept_112['最佳可錄取學校']).sum()
+better_school_count_112 = (filtered_df_same_dept_112['原本錄取學校'] != filtered_df_same_dept_112['最佳可錄取學校']).sum()
+st.write(f"原本學校即最佳選擇的學生數：{same_school_count_112}")
+st.write(f"有更好學校選擇的學生數：{better_school_count_112}")
+st.write(f"總學生數：{len(filtered_df_same_dept_112)}")
 
 # 添加同科系比較的圓形圖
 st.subheader("112學年度同科系比較分布")
