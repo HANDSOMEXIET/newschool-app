@@ -1,0 +1,9 @@
+pandas
+numpy
+matplotlib
+scikit-learn
+joblib
+openai==0.28.0
+openpyxl
+python-dotenv
+streamlit
